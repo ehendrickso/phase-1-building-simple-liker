@@ -1,9 +1,32 @@
 // Defining text characters for the empty and full hearts for you to use later.
-const EMPTY_HEART = '♡'
-const FULL_HEART = '♥'
+const glyphStates = {
+  "♡": "♥",
+  "♥": "♡"
+};
 
+const colorStates = {
+  "red" : "",
+  "": "red"
+};
 // Your JavaScript code goes here!
+const articleHearts = document.querySelectorAll(".like-glyph");
+console.log(articleHearts)
+for (const glyph of articleHearts) {
+  // console.log(glyph)
+  glyph.addEventListener("click", likeCallback);
+}
 
+function likeCallback(e) {
+  const heart = e.target;
+  mimicServerCall()
+    .then(function(){
+      heart.innerText = glyphStates[heart.innerText];
+      heart.style.color = colorStates[heart.style.color];
+    })
+    .catch(function() {
+      reject();
+    });
+}
 
 
 
